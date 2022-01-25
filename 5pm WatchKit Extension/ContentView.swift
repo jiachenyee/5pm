@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct ContentView: View {
     
@@ -33,6 +34,47 @@ struct ContentView: View {
                 is5PM = true
             } else {
                 is5PM = false
+            }
+        }
+        .onAppear {
+            let centre = UNUserNotificationCenter.current()
+            
+            centre.removeAllPendingNotificationRequests()
+            
+            centre.requestAuthorization(options: [.alert, .badge, .carPlay, .criticalAlert, .provisional, .sound]) { auth, _ in
+                if auth {
+                    let content = UNMutableNotificationContent()
+                    content.title = "It's 5PM"
+                    content.body = "HELLO CARL IT'S 5PM"
+                    
+                    
+                    var dateComponents = DateComponents()
+                    
+                    dateComponents.timeZone = .current
+                    dateComponents.hour = 17
+                    
+                    let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+//                    print(dateComponents.date)
+                    
+//                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 30, repeats: false)
+                    
+                    // Create the request
+                    let uuidString = UUID().uuidString
+                    let request = UNNotificationRequest(identifier: uuidString,
+                                                        content: content, trigger: trigger)
+                    
+                    // Schedule the request with the system.
+                    let notificationCenter = UNUserNotificationCenter.current()
+                    
+                    notificationCenter.add(request) { (error) in
+                        if error != nil {
+                            // Handle any errors.
+                            print(error?.localizedDescription)
+                        } else {
+                            print("what")
+                        }
+                    }
+                }
             }
         }
     }
