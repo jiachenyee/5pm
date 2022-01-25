@@ -4,6 +4,8 @@
 
 Is the watch face on your Apple Watch not enough? Do you want to know when it's 5pm in ✨style✨? Fear no more! The 5pm app is here for you :)
 
-## Credits
+## Potato
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/36725840/150947829-2fcfc8a7-2d3e-42ea-b73f-2a17d635fba2.png">
 
+## Credits
 Carl.
